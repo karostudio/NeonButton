@@ -1,0 +1,39 @@
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = 'studio.karo.neonbutton'
+
+install {
+    repositories.mavenInstaller {
+        pom {
+            project {
+                packaging 'aar'
+                groupId 'studio.karo.neonbutton'
+                artifactId 'neonbutton'
+                name 'NeonButton'
+                description 'A light and simple button for android'
+                url 'https://github.com/karostudio/NeonButton'
+
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'KaroStudio'
+                        name 'Mohammad Yeganeh'
+                        email 'dev@karo.studio'
+                    }
+                }
+
+                scm {
+                    connection 'https://github.com/karostudio/NeonButton.git'
+                    developerConnection 'https://github.com/karostudio/NeonButton.git'
+                    url 'https://github.com/karostudio/NeonButton'
+                }
+            }
+        }
+    }
+}
