@@ -5,6 +5,7 @@ Karo Studio is a digital agency with solid design and development expertise.We b
 [![Instagram](https://img.shields.io/badge/Instagram-@KaroStudio-red.svg?style=flat)](https://www.instagram.com/karo.studio/)
 [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/karostudio/neonbutton/blob/master/LICENSE)
 [![Kotlin](https://img.shields.io/badge/Kotlin-1.3.72-f9890b)](https://kotlinlang.org/)
+[![Bintray](https://img.shields.io/bintray/v/mamady83/NeonButton/studio.karo.neonbutton)](https://dl.bintray.com/mamady83/NeonButton/)
 
 ## NEON BUTTON
 
