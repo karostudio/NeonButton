@@ -15,16 +15,16 @@ Karo Studio is a digital agency with solid design and development expertise.We b
 
 ```xml
 <studio.karo.neonbutton.NeonButton
-        android:id="@+id/neonButton"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:text="Click Me"
-        android:textSize="20sp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        app:nb_neon_width="2dp"
-        app:nb_neon_radius="20dp"
-        app:nb_neon_color="#DDCA25"/>
+    android:id="@+id/neonButton"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:text="Click Me"
+    android:textSize="20sp"
+    android:layout_marginLeft="50dp"
+    android:layout_marginRight="50dp"
+    app:nb_neon_width="2dp"
+    app:nb_neon_radius="20dp"
+    app:nb_neon_color="#DDCA25"/>
 ```
 
 ## Requirements
@@ -35,14 +35,14 @@ Karo Studio is a digital agency with solid design and development expertise.We b
 
 ## Installation
 
-NeonButton is available through Bintray. To install
+NeonButton is available through jcenter and bintray. To install
 it, simply add the following line to your app level `build.gradle`:
 
 ```groovy
 api 'studio.karo.neonbutton:neonbutton:1.0.2'
 ```
 
-and the following line to project level `build.gradle`
+if that alone didn't work, add this line to project level `build.gradle`
 
 ```groovy
 repositories {
