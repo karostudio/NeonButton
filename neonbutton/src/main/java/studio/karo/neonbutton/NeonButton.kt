@@ -151,6 +151,9 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
 
         if (!isPressing) {
             canvas?.drawRoundRect(shadowRect, cornerRadius, cornerRadius, shadowPaint)
+            borderPaint.alpha = 250
+        }else {
+            borderPaint.alpha = 180
         }
 
         canvas?.drawRoundRect(borderRect, cornerRadius, cornerRadius, borderPaint)

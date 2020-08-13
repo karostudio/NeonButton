@@ -8,7 +8,7 @@ Karo Studio is a digital agency with solid design and development expertise.We b
 
 ## NEON BUTTON
 
-<img src="https://raw.githubusercontent.com/karostudio/NeonButton/master/screenshots/1.png" width="608" height="224">
+<img src="https://raw.githubusercontent.com/karostudio/NeonButton/master/screenshots/button.gif" width="1136" height="640">
 
 
 ## Example
