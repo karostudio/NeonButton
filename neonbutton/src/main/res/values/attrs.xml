@@ -4,5 +4,6 @@
         <attr name="nb_neon_color" format="color" />
         <attr name="nb_neon_width" format="dimension" />
         <attr name="nb_neon_radius" format="dimension" />
+        <attr name="nb_neon_filled" format="boolean"/>
     </declare-styleable>
 </resources>
