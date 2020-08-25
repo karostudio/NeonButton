@@ -27,6 +27,12 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
     private var borderWidth: Float = 0f
     private var cornerRadius: Float = 0f
 
+    fun setNeonColor(color: Int) {
+        borderPaint.color = color
+        fillPaint.color = color
+        shadowPaint.color = color
+    }
+
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
@@ -34,7 +40,10 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
         attrs,
         defStyleAttr
     ) {
+        setupPaint(attrs)
+    }
 
+    private fun setupPaint(attrs: AttributeSet?) {
         val a: TypedArray = context.theme.obtainStyledAttributes(
             attrs,
             R.styleable.NButton,
@@ -49,7 +58,7 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
 
             if (isFilled) {
                 borderPaint.style = Paint.Style.FILL_AND_STROKE
-            }else{
+            } else {
                 borderPaint.style = Paint.Style.STROKE
             }
             borderPaint.color = wColor
@@ -85,7 +94,6 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
         }
     }
 
-
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         // Try for a width based on our minimum
@@ -112,7 +120,8 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
 
 
         textX = w / 2
-        textY = (h / 2 - (textPaint.descent() + textPaint.ascent()) / 2).toInt() - (minimumPadding/2)
+        textY =
+            (h / 2 - (textPaint.descent() + textPaint.ascent()) / 2).toInt() - (minimumPadding / 2)
 
         setMeasuredDimension(w, h)
     }
@@ -156,7 +165,7 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
         if (!isPressing) {
             canvas?.drawRoundRect(shadowRect, cornerRadius, cornerRadius, shadowPaint)
             borderPaint.alpha = 250
-        }else {
+        } else {
             borderPaint.alpha = 180
         }
 
