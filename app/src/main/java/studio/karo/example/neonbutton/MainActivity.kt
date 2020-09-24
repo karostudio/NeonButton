@@ -1,8 +1,10 @@
 package studio.karo.example.neonbutton
 
+import android.content.res.ColorStateList
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.content.ContextCompat
 import studio.karo.neonbutton.NeonButton
 
 class MainActivity : AppCompatActivity() {
@@ -11,7 +13,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val neonButton = findViewById<NeonButton>(R.id.neonButton);
-        neonButton.setNeonColor(Color.WHITE)
+        neonButton.setNeonColor(ContextCompat.getColor(this, R.color.colorPrimary))
+       // neonButton.setTextColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
 
     }
 }

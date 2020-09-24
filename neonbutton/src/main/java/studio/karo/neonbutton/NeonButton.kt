@@ -28,14 +28,20 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
     private var cornerRadius: Float = 0f
     private var isFilled: Boolean = false
 
+    override fun setTextColor(color: Int) {
+        super.setTextColor(color)
+        textPaint.color = textColors.getColorForState(IntArray(android.R.attr.state_enabled), textColors.defaultColor)
+        textPaint.setShadowLayer(20f, 0f, 0f, textColors.getColorForState(IntArray(android.R.attr.state_enabled), textColors.defaultColor))
+        invalidate()
+    }
     fun setNeonColor(color: Int) {
         borderPaint.color = color
         shadowPaint.color = color
         fillPaint.color = color
         if (isFilled){
-            borderPaint.style = Paint.Style.FILL_AND_STROKE
+            fillPaint.alpha = 250
         }else{
-            borderPaint.style = Paint.Style.STROKE
+            fillPaint.alpha = 20
         }
         invalidate()
     }
@@ -63,11 +69,9 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
             borderWidth = a.getDimension(R.styleable.NButton_nb_neon_width, 0f)
             isFilled = a.getBoolean(R.styleable.NButton_nb_neon_filled, false)
 
-            if (isFilled){
-                borderPaint.style = Paint.Style.FILL_AND_STROKE
-            }else{
-                borderPaint.style = Paint.Style.STROKE
-            }
+
+            borderPaint.style = Paint.Style.STROKE
+
             borderPaint.color = wColor
             borderPaint.strokeCap = Paint.Cap.ROUND
             borderPaint.strokeWidth = borderWidth
@@ -76,8 +80,12 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
 
             fillPaint.style = Paint.Style.FILL
             fillPaint.color = wColor
-            fillPaint.alpha = 20
 
+            if (isFilled) {
+                fillPaint.alpha = 250
+            }else{
+                fillPaint.alpha = 250
+            }
             shadowPaint.style = Paint.Style.STROKE
             shadowPaint.color = wColor
             shadowPaint.strokeCap = Paint.Cap.ROUND
@@ -86,11 +94,11 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
             shadowPaint.maskFilter = BlurMaskFilter(26f, BlurMaskFilter.Blur.NORMAL)
 
             textPaint.style = Paint.Style.FILL
-            textPaint.color = textColors.defaultColor
+            textPaint.color = textColors.getColorForState(IntArray(android.R.attr.state_enabled), textColors.defaultColor)
             textPaint.textSize = textSize
             textPaint.textAlign = Paint.Align.CENTER
             textPaint.typeface = typeface
-            textPaint.setShadowLayer(20f, 0f, 0f, textColors.defaultColor)
+            textPaint.setShadowLayer(20f, 0f, 0f, textColors.getColorForState(IntArray(android.R.attr.state_enabled), textColors.defaultColor))
             textPaint.getTextBounds(text.toString(), 0, text.length, textRect)
 
             setLayerType(LAYER_TYPE_SOFTWARE, borderPaint);
