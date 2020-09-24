@@ -26,11 +26,18 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
     private var textRect: Rect = Rect()
     private var borderWidth: Float = 0f
     private var cornerRadius: Float = 0f
+    private var isFilled: Boolean = false
 
     fun setNeonColor(color: Int) {
         borderPaint.color = color
-        fillPaint.color = color
         shadowPaint.color = color
+        fillPaint.color = color
+        if (isFilled){
+            borderPaint.style = Paint.Style.FILL_AND_STROKE
+        }else{
+            borderPaint.style = Paint.Style.STROKE
+        }
+        invalidate()
     }
 
     constructor(context: Context) : this(context, null)
@@ -54,11 +61,11 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
             val wColor = a.getColor(R.styleable.NButton_nb_neon_color, Color.BLACK)
             cornerRadius = a.getDimension(R.styleable.NButton_nb_neon_radius, 0f)
             borderWidth = a.getDimension(R.styleable.NButton_nb_neon_width, 0f)
-            val isFilled = a.getBoolean(R.styleable.NButton_nb_neon_filled, false)
+            isFilled = a.getBoolean(R.styleable.NButton_nb_neon_filled, false)
 
-            if (isFilled) {
+            if (isFilled){
                 borderPaint.style = Paint.Style.FILL_AND_STROKE
-            } else {
+            }else{
                 borderPaint.style = Paint.Style.STROKE
             }
             borderPaint.color = wColor

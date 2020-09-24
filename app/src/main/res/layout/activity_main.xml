@@ -20,6 +20,6 @@
         app:nb_neon_width="2dp"
         app:nb_neon_radius="20dp"
         app:nb_neon_color="#DDCA25"
-        app:nb_neon_filled="true"/>
+        app:nb_neon_filled="false"/>
 
 </FrameLayout>
