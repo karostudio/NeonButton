@@ -84,7 +84,7 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
             if (isFilled) {
                 fillPaint.alpha = 250
             }else{
-                fillPaint.alpha = 250
+                fillPaint.alpha = 20
             }
             shadowPaint.style = Paint.Style.STROKE
             shadowPaint.color = wColor
