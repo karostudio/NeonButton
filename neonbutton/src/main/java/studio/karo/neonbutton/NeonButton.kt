@@ -31,6 +31,7 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
     override fun setTextColor(color: Int) {
         super.setTextColor(color)
         textPaint.color = textColors.getColorForState(IntArray(android.R.attr.state_enabled), textColors.defaultColor)
+        if (!isFilled)
         textPaint.setShadowLayer(20f, 0f, 0f, textColors.getColorForState(IntArray(android.R.attr.state_enabled), textColors.defaultColor))
         invalidate()
     }
@@ -63,6 +64,8 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
             0, 0
         )
 
+
+
         try {
             val wColor = a.getColor(R.styleable.NButton_nb_neon_color, Color.BLACK)
             cornerRadius = a.getDimension(R.styleable.NButton_nb_neon_radius, 0f)
@@ -93,15 +96,16 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
             shadowPaint.strokeJoin = Paint.Join.ROUND
             shadowPaint.maskFilter = BlurMaskFilter(26f, BlurMaskFilter.Blur.NORMAL)
 
+
             textPaint.style = Paint.Style.FILL
             textPaint.color = textColors.getColorForState(IntArray(android.R.attr.state_enabled), textColors.defaultColor)
             textPaint.textSize = textSize
             textPaint.textAlign = Paint.Align.CENTER
             textPaint.typeface = typeface
+            if (!isFilled)
             textPaint.setShadowLayer(20f, 0f, 0f, textColors.getColorForState(IntArray(android.R.attr.state_enabled), textColors.defaultColor))
             textPaint.getTextBounds(text.toString(), 0, text.length, textRect)
 
-            setLayerType(LAYER_TYPE_SOFTWARE, borderPaint);
 
 
         } finally {

@@ -9,7 +9,7 @@
 
     <studio.karo.neonbutton.NeonButton
         android:id="@+id/neonButton"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="70dp"
         android:layout_gravity="center"
         android:text="Click Me"
@@ -20,6 +20,7 @@
         app:nb_neon_width="2dp"
         app:nb_neon_radius="20dp"
         app:nb_neon_color="#DDCA25"
+        android:layerType="hardware"
         app:nb_neon_filled="false"/>
 
 </FrameLayout>
