@@ -1,18 +1,22 @@
 package studio.karo.neonbutton
 
 import android.content.Context
+import android.content.res.Resources
 import android.content.res.TypedArray
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.DisplayMetrics
+import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
+import kotlin.math.roundToInt
 
 
 class NeonButton : androidx.appcompat.widget.AppCompatButton {
 
     private var isPressing = false
 
-    private val minimumPadding = 30
+    private var minimumPadding = 0f
 
     private var textX = 0
     private var textY = 0
@@ -54,6 +58,9 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
         attrs,
         defStyleAttr
     ) {
+        val metrics: DisplayMetrics = Resources.getSystem().displayMetrics
+        minimumPadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 6f, metrics)
+
         setupPaint(attrs)
     }
 
@@ -120,8 +127,10 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
         val w = View.resolveSizeAndState(minw, widthMeasureSpec, 1)
 
 
+        val minh = paddingTop + paddingBottom + suggestedMinimumHeight
+
         val h = View.resolveSizeAndState(
-            (textRect.bottom - textRect.top + (minimumPadding * 4)).toInt(),
+            minh,
             heightMeasureSpec,
             0
         )
@@ -140,7 +149,7 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
 
         textX = w / 2
         textY =
-            (h / 2 - (textPaint.descent() + textPaint.ascent()) / 2).toInt() - (minimumPadding / 2)
+            (h / 2 - (textPaint.descent() + textPaint.ascent()) / 2).toInt()
 
         setMeasuredDimension(w, h)
     }

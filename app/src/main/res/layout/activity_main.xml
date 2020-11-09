@@ -16,6 +16,7 @@
         android:textSize="20sp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
+        android:background="#fff"
         android:textColor="#DDCA25"
         app:nb_neon_width="2dp"
         app:nb_neon_radius="20dp"
