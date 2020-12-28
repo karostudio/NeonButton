@@ -9,14 +9,13 @@ import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
-import kotlin.math.roundToInt
 
 
 class NeonButton : androidx.appcompat.widget.AppCompatButton {
 
     private var isPressing = false
 
-    private var minimumPadding = 0f
+    private var minimumPadding = 30f
 
     private var textX = 0
     private var textY = 0
@@ -59,8 +58,7 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
         defStyleAttr
     ) {
         val metrics: DisplayMetrics = Resources.getSystem().displayMetrics
-        minimumPadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 6f, metrics)
-
+        minimumPadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12f, metrics)
         setupPaint(attrs)
     }
 
@@ -71,6 +69,9 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
             0, 0
         )
 
+        if (!isHardwareAccelerated) {
+            this.setLayerType(LAYER_TYPE_SOFTWARE, null)
+        }
 
 
         try {
@@ -127,10 +128,8 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
         val w = View.resolveSizeAndState(minw, widthMeasureSpec, 1)
 
 
-        val minh = paddingTop + paddingBottom + suggestedMinimumHeight
-
         val h = View.resolveSizeAndState(
-            minh,
+            (textRect.bottom - textRect.top + (minimumPadding * 4)).toInt(),
             heightMeasureSpec,
             0
         )
@@ -149,7 +148,7 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
 
         textX = w / 2
         textY =
-            (h / 2 - (textPaint.descent() + textPaint.ascent()) / 2).toInt()
+            (h / 2 - (textPaint.descent() + textPaint.ascent()) / 2).toInt() - (minimumPadding / 2).toInt()
 
         setMeasuredDimension(w, h)
     }

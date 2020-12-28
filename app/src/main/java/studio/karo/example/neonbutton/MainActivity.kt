@@ -12,9 +12,5 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val neonButton = findViewById<NeonButton>(R.id.neonButton);
-        neonButton.setNeonColor(ContextCompat.getColor(this, R.color.colorPrimary))
-       // neonButton.setTextColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
-
     }
 }
