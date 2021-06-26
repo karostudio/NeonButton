@@ -27,7 +27,9 @@ Karo Studio is a digital agency with solid design and development expertise.We b
     app:nb_neon_width="2dp"
     app:nb_neon_radius="20dp"
     app:nb_neon_color="#DDCA25"
-    app:nb_neon_filled="false"/>
+    app:nb_neon_filled="false"
+    app:nb_neon_icon="@drawable/ic_banana"
+    app:nb_neon_icon_padding="15dp"/>
 ```
 
 ## Requirements
