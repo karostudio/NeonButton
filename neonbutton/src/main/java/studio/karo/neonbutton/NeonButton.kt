@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.res.Resources
 import android.content.res.TypedArray
 import android.graphics.*
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.DisplayMetrics
 import android.util.TypedValue
@@ -12,7 +14,7 @@ import android.view.View
 
 
 class NeonButton : androidx.appcompat.widget.AppCompatButton {
-
+    private val TAG = "NeonButton"
     private var isPressing = false
 
     private var minimumPadding = 30f
@@ -21,6 +23,7 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
     private var textY = 0
 
     private var borderPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private var iconPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private var fillPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private var shadowPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private var textPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -30,21 +33,32 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
     private var borderWidth: Float = 0f
     private var cornerRadius: Float = 0f
     private var isFilled: Boolean = false
+    private var icon: Drawable? = null
+    private var iconPadding: Float = 0f
 
     override fun setTextColor(color: Int) {
         super.setTextColor(color)
-        textPaint.color = textColors.getColorForState(IntArray(android.R.attr.state_enabled), textColors.defaultColor)
+        textPaint.color = textColors.getColorForState(
+            IntArray(android.R.attr.state_enabled),
+            textColors.defaultColor
+        )
         if (!isFilled)
-        textPaint.setShadowLayer(20f, 0f, 0f, textColors.getColorForState(IntArray(android.R.attr.state_enabled), textColors.defaultColor))
+            textPaint.setShadowLayer(
+                20f, 0f, 0f, textColors.getColorForState(
+                    IntArray(android.R.attr.state_enabled),
+                    textColors.defaultColor
+                )
+            )
         invalidate()
     }
+
     fun setNeonColor(color: Int) {
         borderPaint.color = color
         shadowPaint.color = color
         fillPaint.color = color
-        if (isFilled){
+        if (isFilled) {
             fillPaint.alpha = 250
-        }else{
+        } else {
             fillPaint.alpha = 20
         }
         invalidate()
@@ -79,7 +93,8 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
             cornerRadius = a.getDimension(R.styleable.NButton_nb_neon_radius, 0f)
             borderWidth = a.getDimension(R.styleable.NButton_nb_neon_width, 0f)
             isFilled = a.getBoolean(R.styleable.NButton_nb_neon_filled, false)
-
+            icon = a.getDrawable(R.styleable.NButton_nb_neon_icon)
+            iconPadding = a.getDimension(R.styleable.NButton_nb_neon_icon_padding, 0f)
 
             borderPaint.style = Paint.Style.STROKE
 
@@ -94,7 +109,7 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
 
             if (isFilled) {
                 fillPaint.alpha = 250
-            }else{
+            } else {
                 fillPaint.alpha = 20
             }
             shadowPaint.style = Paint.Style.STROKE
@@ -106,14 +121,22 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
 
 
             textPaint.style = Paint.Style.FILL
-            textPaint.color = textColors.getColorForState(IntArray(android.R.attr.state_enabled), textColors.defaultColor)
+            textPaint.color = textColors.getColorForState(
+                IntArray(android.R.attr.state_enabled),
+                textColors.defaultColor
+            )
+
             textPaint.textSize = textSize
             textPaint.textAlign = Paint.Align.CENTER
             textPaint.typeface = typeface
             if (!isFilled)
-            textPaint.setShadowLayer(20f, 0f, 0f, textColors.getColorForState(IntArray(android.R.attr.state_enabled), textColors.defaultColor))
+                textPaint.setShadowLayer(
+                    20f, 0f, 0f, textColors.getColorForState(
+                        IntArray(android.R.attr.state_enabled),
+                        textColors.defaultColor
+                    )
+                )
             textPaint.getTextBounds(text.toString(), 0, text.length, textRect)
-
 
 
         } finally {
@@ -126,6 +149,7 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
         // Try for a width based on our minimum
         val minw = paddingLeft + paddingRight + suggestedMinimumWidth
         val w = View.resolveSizeAndState(minw, widthMeasureSpec, 1)
+
 
 
         val h = View.resolveSizeAndState(
@@ -149,6 +173,7 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
         textX = w / 2
         textY =
             (h / 2 - (textPaint.descent() + textPaint.ascent()) / 2).toInt() - (minimumPadding / 2).toInt()
+
 
         setMeasuredDimension(w, h)
     }
@@ -192,8 +217,10 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
         if (!isPressing) {
             canvas?.drawRoundRect(shadowRect, cornerRadius, cornerRadius, shadowPaint)
             borderPaint.alpha = 250
+            iconPaint.alpha = 250
         } else {
             borderPaint.alpha = 180
+            iconPaint.alpha = 180
         }
 
         canvas?.drawRoundRect(borderRect, cornerRadius, cornerRadius, borderPaint)
@@ -202,8 +229,44 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
         canvas?.drawRoundRect(borderRect, cornerRadius, cornerRadius, fillPaint)
 
 
-        canvas?.drawText(text.toString(), textX.toFloat(), textY.toFloat(), textPaint)
+        canvas?.drawText(text.toString(), textX.toFloat() - if (icon!=null) 35f else 0f, textY.toFloat(), textPaint)
 
+
+
+        icon?.let {
+            drawableToBitmap(it)?.let { bit ->
+                val spaceHeight = -45f
+                val combinedHeight = bit.height + spaceHeight + textRect.height()
+                canvas?.drawBitmap(bit, (borderRect.centerX()+borderRect.centerX()/2) - (iconPadding) , borderRect.centerY() - (combinedHeight / 2), null)
+            }
+
+        }
+    }
+
+
+    private fun drawableToBitmap(drawable: Drawable): Bitmap? {
+        if (drawable is BitmapDrawable) {
+            if (drawable.bitmap != null) {
+                return drawable.bitmap
+            }
+        }
+        val bitmap: Bitmap? = if (drawable.intrinsicWidth <= 0 || drawable.intrinsicHeight <= 0) {
+            Bitmap.createBitmap(
+                1,
+                1,
+                Bitmap.Config.ARGB_8888
+            )
+        } else {
+            Bitmap.createBitmap(
+                drawable.intrinsicWidth,
+                drawable.intrinsicHeight,
+                Bitmap.Config.ARGB_8888
+            )
+        }
+        val canvas = bitmap?.let { Canvas(it) }
+        canvas?.let { drawable.setBounds(0, 0, it.width, it.height) }
+        canvas?.let { drawable.draw(it) }
+        return bitmap
     }
 
 }
