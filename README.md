@@ -44,7 +44,7 @@ NeonButton is available through jcenter and bintray. To install
 it, simply add the following line to your app level `build.gradle`:
 
 ```groovy
-api 'studio.karo.neonbutton:neonbutton:1.0.4'
+api 'studio.karo.neonbutton:neonbutton:1.1.4'
 ```
 
 if that alone didn't work, add this line to project level `build.gradle`
