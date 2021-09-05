@@ -1,8 +1,21 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply from: 'install.gradle'
-apply from: 'bintray.gradle'
+apply plugin: 'maven-publish'
+
+
+
+repositories {
+    mavenCentral()
+    google()
+    jcenter()
+    maven { url "https://jitpack.io" }
+}
+
+
+group = 'com.github.karostudio'
+version = '1.1.6'
+
 
 android {
     compileSdkVersion 30
@@ -11,8 +24,8 @@ android {
     defaultConfig {
         minSdkVersion 17
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -36,4 +49,18 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.github.karostudio'
+                artifactId = 'neonbutton'
+                version = '1.1.6'
+            }
+        }
+    }
 }
