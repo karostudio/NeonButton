@@ -52,7 +52,7 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
         invalidate()
     }
 
-    fun setNeonColor(color: Int) {
+    fun setNb_neon_color(color: Int) {
         borderPaint.color = color
         shadowPaint.color = color
         fillPaint.color = color
@@ -151,7 +151,6 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
         val w = View.resolveSizeAndState(minw, widthMeasureSpec, 1)
 
 
-
         val h = View.resolveSizeAndState(
             (textRect.bottom - textRect.top + (minimumPadding * 4)).toInt(),
             heightMeasureSpec,
@@ -229,7 +228,12 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
         canvas?.drawRoundRect(borderRect, cornerRadius, cornerRadius, fillPaint)
 
 
-        canvas?.drawText(text.toString(), textX.toFloat() - if (icon!=null) 35f else 0f, textY.toFloat(), textPaint)
+        canvas?.drawText(
+            text.toString(),
+            textX.toFloat() - if (icon != null) 35f else 0f,
+            textY.toFloat(),
+            textPaint
+        )
 
 
 
@@ -237,7 +241,12 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
             drawableToBitmap(it)?.let { bit ->
                 val spaceHeight = -45f
                 val combinedHeight = bit.height + spaceHeight + textRect.height()
-                canvas?.drawBitmap(bit, (borderRect.centerX()+borderRect.centerX()/2) - (iconPadding) , borderRect.centerY() - (combinedHeight / 2), null)
+                canvas?.drawBitmap(
+                    bit,
+                    (borderRect.centerX() + borderRect.centerX() / 2) - (iconPadding),
+                    borderRect.centerY() - (combinedHeight / 2),
+                    null
+                )
             }
 
         }
@@ -267,6 +276,46 @@ class NeonButton : androidx.appcompat.widget.AppCompatButton {
         canvas?.let { drawable.setBounds(0, 0, it.width, it.height) }
         canvas?.let { drawable.draw(it) }
         return bitmap
+    }
+
+    fun setNb_neon_icon(nb_neon_icon: Drawable?) {
+        icon = nb_neon_icon
+        invalidate()
+    }
+
+    fun setNb_neon_icon_padding(nb_neon_icon_padding: Float) {
+        iconPadding = nb_neon_icon_padding
+        invalidate()
+    }
+
+    fun setNb_neon_filled(nb_neon_filled: Boolean) {
+        isFilled = nb_neon_filled
+        if (isFilled) {
+            fillPaint.alpha = 250
+        } else {
+            fillPaint.alpha = 20
+
+            textPaint.setShadowLayer(
+                20f, 0f, 0f, textColors.getColorForState(
+                    IntArray(android.R.attr.state_enabled),
+                    textColors.defaultColor
+                )
+            )
+        }
+
+        invalidate()
+    }
+
+    fun setNb_neon_radius(nb_neon_radius: Float) {
+        cornerRadius = nb_neon_radius
+        invalidate()
+    }
+
+    fun setNb_neon_width(nb_neon_width: Float) {
+        borderWidth = nb_neon_width
+        borderPaint.strokeWidth = borderWidth
+        shadowPaint.strokeWidth = borderWidth
+        invalidate()
     }
 
 }
