@@ -31,10 +31,10 @@ Karo Studio is a digital agency with solid design and development expertise.We b
     app:nb_neon_icon="@drawable/ic_banana"
     app:nb_neon_icon_padding="15dp"/>
 ```
-
+### -----------------------------------
 ```Code
-	val nb = findViewById<NeonButton>(R.id.neonButton)
-	nb.setNb_neon_icon(ContextCompat.getDrawable(this,R.drawable.ic_banana))
+    val nb = findViewById<NeonButton>(R.id.neonButton)
+    nb.setNb_neon_icon(ContextCompat.getDrawable(this,R.drawable.ic_banana))
     nb.setNb_neon_icon_padding(15f)
     nb.setNb_neon_filled(false)
     nb.setNb_neon_color(Color.parseColor("#DDCA25"))
